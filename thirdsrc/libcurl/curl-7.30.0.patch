@@ -1,0 +1,18 @@
+--- a/lib/url.c	2013-02-06 17:47:19.000000000 +0800
++++ b/lib/url.c	2013-02-19 22:49:26.000000000 +0800
+@@ -5028,15 +5028,6 @@
+   if(result != CURLE_OK)
+     return result;
+ 
+-  /*************************************************************
+-   * Check for an overridden user name and password, then set it
+-   * for use
+-   *************************************************************/
+-  override_userpass(data, conn, user, passwd);
+-  result = set_userpass(conn, user, passwd);
+-  if(result != CURLE_OK)
+-    return result;
+-
+   /* Get a cloned copy of the SSL config situation stored in the
+      connection struct. But to get this going nicely, we must first make
+      sure that the strings in the master copy are pointing to the correct
