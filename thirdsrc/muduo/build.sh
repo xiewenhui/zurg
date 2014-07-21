@@ -4,15 +4,18 @@ set -x
 
 SOURCE_DIR=`pwd`
 BUILD_DIR=${BUILD_DIR:-./build}
-BUILD_TYPE=${BUILD_TYPE:-release}
+BUILD_TYPE=${BUILD_TYPE:-debug}
 INSTALL_DIR=${INSTALL_DIR:-./${BUILD_TYPE}-install}
 BUILD_NO_EXAMPLES=${BUILD_NO_EXAMPLES:-0}
 
 mkdir -p $BUILD_DIR/$BUILD_TYPE \
   && cd $BUILD_DIR/$BUILD_TYPE \
   && cmake \
-           -DBOOST_INCLUDEDIR=../../third64/boost/include \
-           -DBOOST_LIBRARYDIR=../../third64/boost/lib \
+           -DBOOST_INCLUDEDIR=$SOURCE_DIR/../../third64/boost/include \
+           -DBoost_INCLUDE_DIRS=$SOURCE_DIR/../../third64/boost/include \
+           -DBOOST_LIBRARYDIR=$SOURCE_DIR/../../third64/boost/lib \
+           -DTCMALLOC_INCLUDE_DIR=$SOURCE_DIR/../../third64/tcmalloc/include/ \
+           -DTCMALLOC_LIBRARY=$SOURCE_DIR/../../third64/tcmalloc/lib/ \
            -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
            -DCMAKE_INSTALL_PREFIX=$INSTALL_DIR \
            -DCMAKE_BUILD_NO_EXAMPLES=$BUILD_NO_EXAMPLES \
@@ -20,14 +23,14 @@ mkdir -p $BUILD_DIR/$BUILD_TYPE \
   && make $*
 
 rm -rf $SOURCE_DIR/output
-cd $SOURCE_DIR/build/release/ && make install && mv release-install ../../output
+cd $SOURCE_DIR/build/debug/ && make install && mv debug-install ../../output
 cd $SOURCE_DIR
 
-rm -rf ../../third64/muduo
-mv output ../../third64/muduo
+rm -rf $SOURCE_DIR/../../third64/muduo
+mv $SOURCE_DIR/output $SOURCE_DIR/../../third64/muduo
 
 if which tree; then
-    tree ../../third64/muduo
+    tree $SOURCE_DIR/../../third64/muduo
 fi
 
 # cd $SOURCE_DIR && doxygen

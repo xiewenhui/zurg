@@ -68,6 +68,9 @@ if(ZLIB_FOUND)
 endif()
 
 include_directories(${Boost_INCLUDE_DIRS})
+include_directories(${TCMALLOC_INCLUDE_DIR})
+link_directories(${BOOST_LIBRARYDIR})
+link_directories(${TCMALLOC_LIBRARY})
 
 include_directories(${PROJECT_SOURCE_DIR})
 
