@@ -15,6 +15,7 @@ cd $basepath/libcurl && sh build.sh
 cd $basepath/libunwind && sh build.sh  
 cd $basepath/libevent && sh build.sh  
 cd $basepath/muduo && sh build.sh  
+cd $basepath/muduo-udns && sh build.sh  
 
 cd $basepath/snappy && sh build.sh  
 cd $basepath/zlib && sh build.sh  
